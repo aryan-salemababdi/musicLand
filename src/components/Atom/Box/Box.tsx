@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface BoxProps {
     children: ReactNode;
@@ -11,11 +12,16 @@ const Box: NextPage<BoxProps> = ({
     className
 }) => {
     return (
-        <>
+        <div className={twMerge(`
+      bg-neutral-800
+      rounded-lg
+      h-fit
+      w-full
+    `, className)}>
             {
                 children
             }
-        </>
+        </div>
     )
 }
 
