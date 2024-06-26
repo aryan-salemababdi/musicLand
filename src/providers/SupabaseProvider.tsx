@@ -1,29 +1,37 @@
-"use client";
+'use client';
 
-import { ReactNode, useState } from "react";
-import { Database } from "../../types_db";
-import { NextPage } from "next";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import { useState, useEffect } from 'react';
+import {NextPage} from "next"
+import { Database } from '../../types_db';
+import { createClientComponentClient, SupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
+//* Props type for the SupabaseProvider component
 interface SupabaseProviderProps {
-    children: ReactNode
-};
-
-
-const SupabaseProvider: NextPage<SupabaseProviderProps> = ({
-    children
-}) => {
-    const [supabaseClient] = useState(() =>
-        createClientComponentClient<Database>()
-    );
-
-    return (
-        <SessionContextProvider supabaseClient={supabaseClient}>
-            {children}
-        </SessionContextProvider>
-    )
+  children: React.ReactNode;
 }
 
+//* SupabaseProvider component definition
+export const SupabaseProvider: NextPage<SupabaseProviderProps> = ({ children }) => {
+  //* Using React's useState to hold the Supabase client object
+  const [supabaseClient, setSupabaseClient] = useState<SupabaseClient | null>(null);
 
-export default SupabaseProvider;
+  //* useEffect hook to initialize the Supabase client when this component mounts
+  useEffect(() => {
+    const client = createClientComponentClient<Database>({
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPERBASE_URL!,
+        supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      });
+      setSupabaseClient(client);
+  }, []);
+
+  //* If the Supabase client is not initialized, render nothing (or a loading spinner)
+  if (!supabaseClient) {
+    return null; //* or a loading spinner
+  }
+
+  //* If the Supabase client is available, render the children within the SessionContextProvider
+  return (
+    <SessionContextProvider supabaseClient={supabaseClient}>{children}</SessionContextProvider>
+  );
+};
