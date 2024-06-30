@@ -1,5 +1,6 @@
 "use client";
 
+import AuthModal from '@/components/Atom/AuthModal/AuthModal';
 import Modal from '@/components/Atom/Modal/Modal';
 import React, { useEffect, useState } from 'react'
 
@@ -13,11 +14,8 @@ const ModalProvider = () => {
 
     if (!isMounted) null;
 
-    return (
-        <>
-            <Modal />
-        </>
-    )
+    return <AuthModal />
+
 }
 
 export default ModalProvider;
