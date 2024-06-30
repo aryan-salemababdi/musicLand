@@ -11,6 +11,7 @@ import { Button } from "../Button/Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
+import toast from "react-hot-toast";
 
 interface HeaderProps {
   children: ReactNode,
@@ -31,7 +32,10 @@ const Header: NextPage<HeaderProps> = ({
     //TODO: Reset any playing songs
     router.refresh();
     if (error) {
-      console.log(error);
+      toast.error(error.message);
+    }
+    else {
+      toast.success("Logged out")
     }
   };
   return (
