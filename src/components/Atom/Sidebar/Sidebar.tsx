@@ -2,21 +2,24 @@
 import { NextPage } from 'next';
 import { usePathname } from 'next/navigation';
 import { ReactNode, useMemo } from 'react';
+import Library from '../Library/Library';
+import { twMerge } from 'tailwind-merge';
+import { Song } from '@/../../types';
+import Box from '../Box/Box';
+import SidebarItem from '../SidebarItem/SidebarItem';
 
 // icon
 import { HiHome } from "react-icons/hi"
 import { BiSearch } from 'react-icons/bi';
-import Box from '../Box/Box';
-import SidebarItem from '../SidebarItem/SidebarItem';
-import { twMerge } from 'tailwind-merge';
-import Library from '../Library/Library';
 
 interface SidebarProps {
-    children: ReactNode
+    children: ReactNode;
+    songs: Song[];
 }
 
 const Sidebar: NextPage<SidebarProps> = ({
-    children
+    children,
+    songs
 }) => {
 
     const pathname = usePathname();
@@ -31,7 +34,7 @@ const Sidebar: NextPage<SidebarProps> = ({
         icon: BiSearch,
         label: "Search",
         active: pathname === "/search",
-        href: "/"
+        href: "/search"
     }
     ], [pathname]);
 
@@ -54,7 +57,7 @@ const Sidebar: NextPage<SidebarProps> = ({
                         </div>
                     </Box>
                     <Box className="overflow-y-auto h-full">
-                        <Library />
+                        <Library songs={songs}/>
                     </Box>
                 </div>
                 <main className="h-full flex-1 overflow-y-auto py-2">{children}</main>

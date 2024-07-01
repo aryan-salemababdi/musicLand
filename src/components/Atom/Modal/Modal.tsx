@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import { NextPage } from "next";
 import * as Dialog from "@radix-ui/react-dialog";
 import { IoMdClose } from "react-icons/io";
+import useUploadModal from "@/hooks/useUploadModal";
+import useAuthModal from "@/hooks/useAuthModal";
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,6 +21,8 @@ const Modal: NextPage<ModalProps> = ({
   description,
   children
 }) => {
+  const uploadModal = useUploadModal();
+  const { onClose } = useAuthModal();
   return (
     <div>
       <Dialog.Root
@@ -98,6 +102,10 @@ const Modal: NextPage<ModalProps> = ({
                 rounded-full
                 focus:outline-none
                 "
+                  onClick={() => {
+                    uploadModal.onClose();
+                    onClose();
+                  }}
                 >
                   <IoMdClose />
                 </button>

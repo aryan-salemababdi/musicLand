@@ -1,14 +1,22 @@
 "use client"
-
+import {NextPage} from "next";
 import useAuthModal from "@/hooks/useAuthModal";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
 import AuthModal from "../AuthModal/AuthModal";
 import useUploadModal from "@/hooks/useUploadModal";
 import { useUser } from '@/hooks/useUser';
+import { Song } from '@/../../types';
+import MediaItem from "../MediaItem/MediaItem";
 
 
-const Library = () => {
+interface LibaryProps {
+  songs: Song[];
+}
+
+const Library:NextPage<LibaryProps> = ({
+  songs
+}) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
@@ -33,7 +41,17 @@ const Library = () => {
         />
       </div>
       <div className="flex flex-col gap-y-2 mt-4 px-3">
-        List of songs
+       {
+        songs.map((item)=>(
+          <div key={item.id}>
+                <MediaItem
+                onClick={()=>{}}
+                key={item.id}
+                data={item}
+                />
+          </div>
+        ))
+       }
       </div>
     </div>
   )

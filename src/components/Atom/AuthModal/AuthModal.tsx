@@ -15,7 +15,6 @@ const AuthModal = () => {
     const router = useRouter();
     const { session } = useSessionContext();
     const { onClose, isOpen } = useAuthModal();
-
     const onChange = (open: boolean) => {
         if (!open) onClose()
     }
