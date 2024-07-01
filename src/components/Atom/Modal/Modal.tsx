@@ -43,16 +43,18 @@ const Modal: NextPage<ModalProps> = ({
               className="
             fixed
             drop-shadow-md
+            overflow-y-auto
+            mt-3
             border
             border-neutral-700
             top-[50%]
             left-[50%]
-            max-h-full
-            h-full
+            max-h-[85vh]
+            h-[80vh]
             md:h-auto
             md:mx-h-[85vh]
-            w-full
-            md:w-[90vw]
+            w-[85vw]
+            md:w-[85vw]
             md:max-w-[450px]
             translate-x-[-50%]
             translate-y-[-50%]

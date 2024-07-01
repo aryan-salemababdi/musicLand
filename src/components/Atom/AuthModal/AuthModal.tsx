@@ -27,30 +27,32 @@ const AuthModal = () => {
     }, [session, router, onClose]);
 
     return (
-        <Modal
-            title="Welcome Back!"
-            description="Please login to your account"
-            isOpen={isOpen}
-            onCheange={onChange}
-        >
-            <Auth
-                theme="dark"
-                providers={["google", "apple", "github"]}
-                magicLink
-                supabaseClient={SupabaseClient}
-                appearance={{
-                    theme: ThemeSupa,
-                    variables: {
-                        default: {
-                            colors: {
-                                brand: "#404040",
-                                brandAccent: "#22c55e"
+        <div>
+            <Modal
+                title="Welcome Back!"
+                description="Please login to your account"
+                isOpen={isOpen}
+                onCheange={onChange}
+            >
+                <Auth
+                    theme="dark"
+                    providers={["google", "apple", "github"]}
+                    magicLink
+                    supabaseClient={SupabaseClient}
+                    appearance={{
+                        theme: ThemeSupa,
+                        variables: {
+                            default: {
+                                colors: {
+                                    brand: "#404040",
+                                    brandAccent: "#22c55e"
+                                }
                             }
                         }
-                    }
-                }}
-            />
-        </Modal>
+                    }}
+                />
+            </Modal>
+        </div>
     )
 }
 
