@@ -10,7 +10,7 @@ import { useLoadImage } from "@/hooks/useLoadImage";
 interface MediaItemProps {
     data: Song;
     onClick: (id: string) => void;
-    activeSongId: string | null; 
+    activeSongId?: string | null; 
 }
 
 const MediaItem: NextPage<MediaItemProps> = ({

@@ -30,7 +30,7 @@ const Library: NextPage<LibaryProps> = ({
     return uploadModal.onOpen();
   }
 
-  const openPlayer = (id:string) => {
+  const openPlayer = (id: string) => {
     if (activeSongId === id) {
       setActiveSongId(null);
     } else {
@@ -56,7 +56,7 @@ const Library: NextPage<LibaryProps> = ({
           songs.map((item) => (
             <div key={item.id}>
               <MediaItem
-                onClick={()=> openPlayer(item.id)}
+                onClick={() => openPlayer(item.id)}
                 key={item.id}
                 data={item}
                 activeSongId={activeSongId}
