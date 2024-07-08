@@ -1,4 +1,6 @@
 'use client';
+import { useState } from 'react';
+import { NextPage } from 'next';
 import SongItem from '@/components/Atom/SongItem/SongItem';
 import { Song } from '@/../../types';
 
@@ -6,7 +8,17 @@ interface PageContentProps {
     songs: Song[];
 }
 
-const PageContent: React.FC<PageContentProps> = ({ songs }) => {
+const PageContent: NextPage<PageContentProps> = ({ songs }) => {
+
+    const [activeSongId, setActiveSongId] = useState<string | null>(null);
+
+    const openPlayer = (id: string) => {
+        if (activeSongId === id) {
+            setActiveSongId(null);
+        } else {
+            setActiveSongId(id);
+        }
+    };
 
     if (songs.length === 0) {
         return <div className="mt-4 text-neutral-400">No songs available</div>;
@@ -27,7 +39,12 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
         "
         >
             {songs.map((item) => (
-                <SongItem key={item.id} data={item} />
+                <SongItem 
+                key={item.id}
+                 data={item}
+                 onClick={()=>openPlayer(item.id)}
+                 activeSongId={activeSongId}
+                 />
             ))}
         </div>
     );

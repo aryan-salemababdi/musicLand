@@ -8,15 +8,21 @@ import PlayButton from '../PlayButton/PlayButton';
 
 interface SongItemProps {
     data: Song;
-    // onClick: (id: string) => void;
+    onClick: (id: string) => void;
+    activeSongId: string | null;
 }
 
-const SongItem: NextPage<SongItemProps> = ({ data }) => {
+const SongItem: NextPage<SongItemProps> = ({
+    data,
+    onClick,
+    activeSongId
+}) => {
 
     const imagePath = useLoadImage(data);
 
     return (
         <div
+            onClick={() => onClick(data.id)}
             className="
         relative 
         group
@@ -58,6 +64,13 @@ const SongItem: NextPage<SongItemProps> = ({ data }) => {
             <div className="absolute bottom-24 right-5">
                 <PlayButton />
             </div>
+            {activeSongId === data.id && (
+                <audio
+                    src={`https://zxfaokwchdpwczfkmsen.supabase.co/storage/v1/object/public/songs/${data.song_path}`}
+                    controls
+                    style={{ width: "250px" }}
+                />
+            )}
         </div>
     );
 };

@@ -1,5 +1,6 @@
 "use client"
-import {NextPage} from "next";
+import { useState } from "react";
+import { NextPage } from "next";
 import useAuthModal from "@/hooks/useAuthModal";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
@@ -14,9 +15,10 @@ interface LibaryProps {
   songs: Song[];
 }
 
-const Library:NextPage<LibaryProps> = ({
+const Library: NextPage<LibaryProps> = ({
   songs
 }) => {
+  const [activeSongId, setActiveSongId] = useState<string | null>(null);
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
@@ -26,6 +28,15 @@ const Library:NextPage<LibaryProps> = ({
     // TODO: Check for subscription
 
     return uploadModal.onOpen();
+  }
+
+  const openPlayer = (id:string) => {
+    if (activeSongId === id) {
+      setActiveSongId(null);
+    } else {
+      setActiveSongId(id);
+    }
+
   }
   return (
     <div className="flex flex-col">
@@ -41,20 +52,21 @@ const Library:NextPage<LibaryProps> = ({
         />
       </div>
       <div className="flex flex-col gap-y-2 mt-4 px-3">
-       {
-        songs.map((item)=>(
-          <div key={item.id}>
-                <MediaItem
-                onClick={()=>{}}
+        {
+          songs.map((item) => (
+            <div key={item.id}>
+              <MediaItem
+                onClick={()=> openPlayer(item.id)}
                 key={item.id}
                 data={item}
-                />
-          </div>
-        ))
-       }
+                activeSongId={activeSongId}
+              />
+            </div>
+          ))
+        }
       </div>
     </div>
   )
-}
+};
 
 export default Library;
