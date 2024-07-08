@@ -9,8 +9,8 @@ import { useLoadImage } from "@/hooks/useLoadImage";
 
 interface MediaItemProps {
     data: Song;
-    onClick: (id: string) => void;
-    activeSongId?: string | null; 
+    onClick?: (id: string) => void;
+    activeSongId?: string | null;
 }
 
 const MediaItem: NextPage<MediaItemProps> = ({
@@ -22,7 +22,7 @@ const MediaItem: NextPage<MediaItemProps> = ({
     const imageUrl = useLoadImage(data);
 
     const handleClick = () => {
-        onClick(data.id);
+        if (onClick) onClick(data.id);
         player.setId(data.id);
     };
 
